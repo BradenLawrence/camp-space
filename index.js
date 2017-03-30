@@ -11,27 +11,37 @@ var sites = [
         {name: "Cupola Module", location: "International Space Station", img: "img/cupola.jpg"}, 
         {name: "Bonneville Crater", location: "Mars", img: "img/bonnevilleCrater.jpg"}, 
         {name: "Double Crater", location: "Moon", img: "img/apollo11Flag.jpg"}, 
-        {name: "Huygen's Landing", location: "Titan", img: "img/huygens.jpg"}, 
+        {name: "Huygen's Landing", location: "Titan", img: "img/huygens.jpg"},
+        {name: "Yellowknife Bay", location: "Mars", img: "img/yellowknifeBay.jpg"},
+        {name: "Cupola Module", location: "International Space Station", img: "img/cupola.jpg"}, 
+        {name: "Bonneville Crater", location: "Mars", img: "img/bonnevilleCrater.jpg"}, 
+        {name: "Double Crater", location: "Moon", img: "img/apollo11Flag.jpg"}, 
+        {name: "Huygen's Landing", location: "Titan", img: "img/huygens.jpg"},
+        {name: "Yellowknife Bay", location: "Mars", img: "img/yellowknifeBay.jpg"},
+        {name: "Cupola Module", location: "International Space Station", img: "img/cupola.jpg"}, 
+        {name: "Bonneville Crater", location: "Mars", img: "img/bonnevilleCrater.jpg"}, 
+        {name: "Double Crater", location: "Moon", img: "img/apollo11Flag.jpg"}, 
+        {name: "Huygen's Landing", location: "Titan", img: "img/huygens.jpg"}
     ]
 
 app.get("/", function(request, response) {
     response.render("home")
 })
 
-app.get("/campgrounds", function(request, response) {
+app.get("/landingSites", function(request, response) {
     
-    response.render("campgrounds", {sites: sites})
+    response.render("landingSites", {sites: sites})
 })
 
-app.post("/campgrounds", function(request, response) {
+app.post("/landingSites", function(request, response) {
     var name = request.body.name
     var loc = request.body.loc
     var img = request.body.img
     sites.push({name: name, location: loc, img: img})
-    response.redirect("/campgrounds")
+    response.redirect("/landingSites")
 })
 
-app.get("/campgrounds/new", function(request, response) {
+app.get("/landingSites/new", function(request, response) {
     response.render("new.ejs")
 })
 
