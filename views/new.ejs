@@ -9,30 +9,32 @@
     </header>
     <div class="row">
         <div class="col-lg-4"></div>
-        <form class="col-lg-4" action="/landingSites" method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input class="form-control" type="text" name="name" id="name" placeholder="ex: Olympus Mons">
-            </div>
-            <div class="form-group">
-                <label for="loc">Location</label>
-                <input class="form-control" type="text" name="loc" id="location" placeholder="ex: Mars">
-            </div>
-            <div class="form-group">
-                <label for="img">Image URL</label>
-                <input class="form-control" type="text" name="img" id="img" placeholder="ex: http://www.example.com/example.jpg">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary btn-lg btn-block">Submit</button>
-            </div>
-        </form>
+        <div class="col-lg-4">
+            <form action="/landingSites" method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="ex: Olympus Mons">
+                </div>
+                <div class="form-group">
+                    <label for="loc">Location</label>
+                    <input class="form-control" type="text" name="loc" id="location" placeholder="ex: Mars">
+                </div>
+                <div class="form-group">
+                    <label for="img">Image URL</label>
+                    <input class="form-control" type="text" name="img" id="img" placeholder="ex: http://www.example.com/example.jpg">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-lg btn-block">Submit</button>
+                </div>
+            </form>
+        </div>
         <div class="col-lg-4"></div>
     </div>
     <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-3">
-            <p><a class="btn btn-danger btn-large" href="/landingSites">Cancel</a></p>
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4 form-group">
+            <a href="/landingSites">Cancel</a>
         </div>
-        <div class="col-lg-8"></div>
-</div>
+        <div class="col-lg-4"></div>
+    </div>
 <% include partials/footer %>
