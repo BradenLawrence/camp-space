@@ -11,7 +11,8 @@ mongoose.connect("mongodb://localhost/camp-space")
 var siteSchema = new mongoose.Schema({
     name: String,
     location: String,
-    img: String
+    img: String,
+    description: String
 })
 
 var Site = mongoose.model("Site", siteSchema)
@@ -26,7 +27,7 @@ app.get("/landingSites", function(request, response) {
             console.log("Something went wrong, could not find sites.")
             console.log(error)
         } else {
-            response.render("landingSites", {sites: dbResponse})
+            response.render("index", {sites: dbResponse})
             console.log(dbResponse)
         }
     })
@@ -42,8 +43,7 @@ app.post("/landingSites", function(request, response) {
             console.log("Something went wrong, could not add site.")
             console.log(error)
         } else {
-            console.log("Added new entry to Site")
-            console.log(newSite)
+            console.log("Added new entry to Sites")
             response.redirect("/landingSites")
         }
     }
@@ -52,6 +52,10 @@ app.post("/landingSites", function(request, response) {
 
 app.get("/landingSites/new", function(request, response) {
     response.render("new.ejs")
+})
+
+app.get("/landingSites/:id", function(request, response){
+    response.render("show")
 })
 
 app.listen(process.env.PORT, process.env.IP, function() {
