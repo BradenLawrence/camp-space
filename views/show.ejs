@@ -1,1 +1,13 @@
-<h1>What's updog?</h1>
+<% include partials/header %>
+<h1><%= site.name %></h1>
+<p><%= site.location %></p>
+<p><img src="<%= site.img %>"></p>
+<p><%= site.description %></p>
+<div class="comments">
+    <% site.comments.forEach(function(element) { %>
+        <p><strong><%= element.author %></strong></p>
+        <p><%= element.text %></p>
+    <% }) %>
+</div>
+
+<% include partials/footer %>
