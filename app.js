@@ -25,14 +25,14 @@ app.get("/landingSites", function(request, response) {
             console.log("Something went wrong, could not find sites.")
             console.log(error)
         } else {
-            response.render("index", {sites: dbResponse})
+            response.render("landingsites/index", {sites: dbResponse})
         }
     })
 })
 
 // NEW
 app.get("/landingSites/new", function(request, response) {
-    response.render("new.ejs")
+    response.render("landingsites/new")
 })
 
 // CREATE
@@ -61,10 +61,28 @@ app.get("/landingSites/:id", function(request, response){
             console.log(error)
         } else {
             console.log(dbSiteFound.comments)
-            response.render("show", {site: dbSiteFound})
+            response.render("landingsites/show", {site: dbSiteFound})
         }
     })
 })
+
+
+// COMMENT ROUTES
+// ================================//
+
+
+// COMMENT NEW
+app.get("/landingSites/:id/comments/new", function(request, response){
+    Site.findById(request.params.id, function(error, foundSite){
+        if(error){
+            console.log(error)
+        } else {
+            response.render("comments/new", {site: foundSite})
+        }
+    })
+})
+
+
 
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("CampSpace server is running...")
