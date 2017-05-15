@@ -8,6 +8,9 @@
         <p><strong><%= element.author %></strong></p>
         <p><%= element.text %></p>
     <% }) %>
+    <p>
+        <a class="btn btn-primary" href="/landingsites/<%= site._id %>/comments/new">Add comment</a>
+    </p>
 </div>
 
 <% include ../partials/footer %>

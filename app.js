@@ -3,6 +3,7 @@ var express     = require("express"),
     bodyParser  = require("body-parser"),
     mongoose    = require("mongoose"),
     Site        = require("./models/landingsite"),
+    Comment     = require("./models/comment"),
     seedDB      = require("./seeds")
     
 seedDB()    
@@ -78,6 +79,26 @@ app.get("/landingSites/:id/comments/new", function(request, response){
             console.log(error)
         } else {
             response.render("comments/new", {site: foundSite})
+        }
+    })
+})
+
+app.post("/landingsites/:id/comments", function(request, response){
+    Site.findById(request.params.id, function(error, foundSite){
+        if(error){
+            console.log(error)
+            request.redirect("/landingsites")
+        } else {
+            Comment.create(request.body.comment, function(error, newComment){
+                if(error){
+                    console.log("Something went wrong, could not add comment.")
+                    console.log(error)
+                } else {
+                    foundSite.comments.push(newComment)
+                    foundSite.save()
+                    response.redirect("/landingsites/" + foundSite._id)
+                }
+            })
         }
     })
 })
