@@ -34,6 +34,22 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+// MIDDLEWARE
+// Make the current user's data available to all views
+app.use(function(request, response, next){
+    response.locals.currentUser = request.user
+    next()
+})
+
+// Check if the user is logged in
+function isLoggedIn(request, response, next){
+    if(request.isAuthenticated()){
+        return next()
+    } else {
+        response.redirect("/login")
+    }
+}
+
 
 // --------------------------------- //
 // ============= ROUTES ============ //
@@ -50,7 +66,10 @@ app.get("/landingSites", function(request, response) {
             console.log("Something went wrong, could not find sites.")
             console.log(error)
         } else {
-            response.render("landingsites/index", {sites: dbResponse})
+            response.render("landingsites/index", {
+                sites: dbResponse,
+                currentUser: request.user
+            })
         }
     })
 })
@@ -166,15 +185,6 @@ app.get("/logout", function(request, response) {
     request.logout()
     response.redirect("/landingsites")
 })
-
-// MIDDLEWARE
-function isLoggedIn(request, response, next){
-    if(request.isAuthenticated()){
-        return next()
-    } else {
-        response.redirect("/login")
-    }
-}
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
