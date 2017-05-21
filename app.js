@@ -161,6 +161,12 @@ app.post("/login", passport.authenticate("local",
         }), 
         function(request, response) {})
 
+// USER LOGOUT
+app.get("/logout", function(request, response) {
+    request.logout()
+    response.redirect("/landingsites")
+})
+
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
