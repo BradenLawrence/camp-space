@@ -136,8 +136,30 @@ app.get("/register", function(request, response) {
 
 // USER CREATE
 app.post("/register", function(request, response) {
-    response.send("You're totally signed up! (not really...)")
+    var newUser = new User({username: request.body.username})
+    User.register(newUser, request.body.password, function(error, registeredUser){
+        if(error){
+            console.log(error)
+            response.redirect("/register")
+        } else {
+            passport.authenticate("local")(request, response, function(){
+                response.redirect("/landingsites")
+            })
+        }
+    })
 })
+
+// USER LOGIN
+app.get("/login", function(request, response) {
+    response.render("auth/login")
+})
+
+app.post("/login", passport.authenticate("local", 
+        {
+            successRedirect: "/landingsites",
+            failureRedirect: "/login"
+        }), 
+        function(request, response) {})
 
 
 // LISTEN
