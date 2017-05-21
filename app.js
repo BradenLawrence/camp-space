@@ -96,7 +96,7 @@ app.get("/landingSites/:id", function(request, response){
 // ================================//
 
 // COMMENT NEW
-app.get("/landingSites/:id/comments/new", function(request, response){
+app.get("/landingSites/:id/comments/new", isLoggedIn, function(request, response){
     Site.findById(request.params.id, function(error, foundSite){
         if(error){
             console.log(error)
@@ -106,7 +106,7 @@ app.get("/landingSites/:id/comments/new", function(request, response){
     })
 })
 
-app.post("/landingsites/:id/comments", function(request, response){
+app.post("/landingsites/:id/comments", isLoggedIn,function(request, response){
     Site.findById(request.params.id, function(error, foundSite){
         if(error){
             console.log(error)
@@ -167,6 +167,14 @@ app.get("/logout", function(request, response) {
     response.redirect("/landingsites")
 })
 
+// MIDDLEWARE
+function isLoggedIn(request, response, next){
+    if(request.isAuthenticated()){
+        return next()
+    } else {
+        response.redirect("/login")
+    }
+}
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
