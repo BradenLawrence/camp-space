@@ -1,15 +1,23 @@
-var express         = require("express"),
-    app             = express(),
-    bodyParser      = require("body-parser"),
-    mongoose        = require("mongoose"),
-    expressSession  = require("express-session"),
-    passport        = require("passport"),
-    LocalStrategy   = require("passport-local"),
-    // MODELS
-    User            = require("./models/user"),
-    Site            = require("./models/landingsite"),
-    Comment         = require("./models/comment"),
-    seedDB          = require("./seeds")
+// PACKAGES
+var express             = require("express"),
+    app                 = express(),
+    bodyParser          = require("body-parser"),
+    mongoose            = require("mongoose"),
+    expressSession      = require("express-session"),
+    passport            = require("passport"),
+    LocalStrategy       = require("passport-local")
+    
+// MODELS
+var User                = require("./models/user"),
+    Site                = require("./models/landingsite"),
+    Comment             = require("./models/comment"),
+    seedDB              = require("./seeds")
+    
+// ROUTES
+var indexRoutes         = require("./routes/index"),
+    landingsiteRoutes   = require("./routes/landingsites"),
+    commentsRoutes      = require("./routes/comments"),
+    authRoutes          = require("./routes/auth")
     
 seedDB()    
 
@@ -41,150 +49,19 @@ app.use(function(request, response, next){
     next()
 })
 
-// Check if the user is logged in
-function isLoggedIn(request, response, next){
-    if(request.isAuthenticated()){
-        return next()
-    } else {
-        response.redirect("/login")
-    }
-}
+// ROUTE SETTINGS
+app.use("/", indexRoutes)
+app.use("/landingsites", landingsiteRoutes)
+app.use("/landingsites/:id/comments", commentsRoutes)
+app.use("/", authRoutes)
 
 
-// --------------------------------- //
-// ============= ROUTES ============ //
-// --------------------------------- //
-
-// INDEX
-app.get("/", function(request, response) {
-    response.render("home")
-})
-
-app.get("/landingSites", function(request, response) {
-    Site.find({}, function(error, dbResponse){
-        if(error){
-            console.log("Something went wrong, could not find sites.")
-            console.log(error)
-        } else {
-            response.render("landingsites/index", {
-                sites: dbResponse,
-                currentUser: request.user
-            })
-        }
-    })
-})
-
-// NEW
-app.get("/landingSites/new", function(request, response) {
-    response.render("landingsites/new")
-})
-
-// CREATE
-app.post("/landingSites", function(request, response) {
-    var newSite = {
-        name:        request.body.name,
-        location:    request.body.loc,
-        img:         request.body.img,
-        description: request.body.desc
-    }
-    Site.create(newSite, function(error, newSite){
-        if(error){
-            console.log("Something went wrong, could not add site.")
-            console.log(error)
-        } else {
-            response.redirect("/landingSites")
-        }
-    })
-    
-})
-
-// SHOW
-app.get("/landingSites/:id", function(request, response){
-    Site.findById(request.params.id).populate("comments").exec(function(error, dbSiteFound){
-        if(error){
-            console.log(error)
-        } else {
-            console.log(dbSiteFound.comments)
-            response.render("landingsites/show", {site: dbSiteFound})
-        }
-    })
-})
 
 
-// COMMENT ROUTES
-// ================================//
 
-// COMMENT NEW
-app.get("/landingSites/:id/comments/new", isLoggedIn, function(request, response){
-    Site.findById(request.params.id, function(error, foundSite){
-        if(error){
-            console.log(error)
-        } else {
-            response.render("comments/new", {site: foundSite})
-        }
-    })
-})
 
-app.post("/landingsites/:id/comments", isLoggedIn,function(request, response){
-    Site.findById(request.params.id, function(error, foundSite){
-        if(error){
-            console.log(error)
-            request.redirect("/landingsites")
-        } else {
-            Comment.create(request.body.comment, function(error, newComment){
-                if(error){
-                    console.log("Something went wrong, could not add comment.")
-                    console.log(error)
-                } else {
-                    foundSite.comments.push(newComment)
-                    foundSite.save()
-                    response.redirect("/landingsites/" + foundSite._id)
-                }
-            })
-        }
-    })
-})
 
-// AUTHENTICATION ROUTES
-// ================================//
 
-// USER NEW
-app.get("/register", function(request, response) {
-    response.render("auth/register")
-})
-
-// USER CREATE
-app.post("/register", function(request, response) {
-    var newUser = new User({username: request.body.username})
-    User.register(newUser, request.body.password, function(error, registeredUser){
-        if(error){
-            console.log(error)
-            response.redirect("/register")
-        } else {
-            passport.authenticate("local")(request, response, function(){
-                response.redirect("/landingsites")
-            })
-        }
-    })
-})
-
-// USER LOGIN
-app.get("/login", function(request, response) {
-    response.render("auth/login")
-})
-
-app.post("/login", passport.authenticate("local", 
-        {
-            successRedirect: "/landingsites",
-            failureRedirect: "/login"
-        }), 
-        function(request, response) {})
-
-// USER LOGOUT
-app.get("/logout", function(request, response) {
-    request.logout()
-    response.redirect("/landingsites")
-})
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
