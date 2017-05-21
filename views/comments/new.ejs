@@ -12,11 +12,7 @@
         <div class="col-lg-4">
             <form action="/landingSites/<%= site._id %>/comments" method="POST">
                 <div class="form-group">
-                    <label for="name">Author</label>
-                    <input class="form-control" type="text" name="comment[author]" id="author" placeholder="ex: Chris Hadfield">
-                </div>
-                <div class="form-group">
-                    <label for="loc">Comment</label>
+                    <label for="loc">Posting as <%= currentUser.username %></label>
                     <input class="form-control" type="text" name="comment[text]" id="text" placeholder="ex: Five stars!">
                 </div>
                 <div class="form-group">

@@ -10,10 +10,7 @@ router.get("/", function(request, response) {
             console.log("Something went wrong, could not find sites.")
             console.log(error)
         } else {
-            response.render("landingsites/index", {
-                sites: dbResponse,
-                currentUser: request.user
-            })
+            response.render("landingsites/index", {sites: dbResponse})
         }
     })
 })
@@ -48,7 +45,6 @@ router.get("/:id", function(request, response){
         if(error){
             console.log(error)
         } else {
-            console.log(dbSiteFound.comments)
             response.render("landingsites/show", {site: dbSiteFound})
         }
     })

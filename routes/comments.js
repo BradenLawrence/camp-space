@@ -24,6 +24,7 @@ router.get("/new", isLoggedIn, function(request, response){
     })
 })
 
+// COMMENT CREATE
 router.post("/", isLoggedIn,function(request, response){
     Site.findById(request.params.id, function(error, foundSite){
         if(error){
@@ -35,6 +36,9 @@ router.post("/", isLoggedIn,function(request, response){
                     console.log("Something went wrong, could not add comment.")
                     console.log(error)
                 } else {
+                    newComment.author.id = request.user._id
+                    newComment.author.username = request.user.username
+                    newComment.save()
                     foundSite.comments.push(newComment)
                     foundSite.save()
                     response.redirect("/landingsites/" + foundSite._id)

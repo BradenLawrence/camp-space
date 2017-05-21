@@ -18,15 +18,14 @@ var indexRoutes         = require("./routes/index"),
     landingsiteRoutes   = require("./routes/landingsites"),
     commentsRoutes      = require("./routes/comments"),
     authRoutes          = require("./routes/auth")
-    
-seedDB()    
 
 // GENERAL APP SETTINGS
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + "/assets"))
 
-// MONGOOSE DATABASE SETTINGS
+// DATABASE SETTINGS
+// seedDB()
 mongoose.Promise = global.Promise
 mongoose.connect("mongodb://localhost/camp-space")
 
@@ -54,14 +53,6 @@ app.use("/", indexRoutes)
 app.use("/landingsites", landingsiteRoutes)
 app.use("/landingsites/:id/comments", commentsRoutes)
 app.use("/", authRoutes)
-
-
-
-
-
-
-
-
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
