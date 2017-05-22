@@ -12,20 +12,23 @@
         <div class="col-lg-4">
             <form action="/landingSites" method="POST">
                 <div class="form-group">
+                    <label>Posting as <%= currentUser.username %></label>
+                </div>
+                <div class="form-group">
                     <label for="name">Name</label>
-                    <input class="form-control" type="text" name="name" id="name" placeholder="ex: Olympus Mons">
+                    <input class="form-control" type="text" name="site[name]" id="name" placeholder="ex: Olympus Mons">
                 </div>
                 <div class="form-group">
                     <label for="loc">Location</label>
-                    <input class="form-control" type="text" name="loc" id="location" placeholder="ex: Mars">
+                    <input class="form-control" type="text" name="site[location]" id="location" placeholder="ex: Mars">
                 </div>
                 <div class="form-group">
                     <label for="desc">Description</label>
-                    <input class="form-control" type="text" name="desc" id="description" placeholder="Describe why this place is special...">
+                    <input class="form-control" type="text" name="site[description]" id="description" placeholder="Describe why this place is special...">
                 </div>
                 <div class="form-group">
                     <label for="img">Image URL</label>
-                    <input class="form-control" type="text" name="img" id="img" placeholder="ex: http://www.example.com/example.jpg">
+                    <input class="form-control" type="text" name="site[img]" id="img" placeholder="ex: http://www.example.com/example.jpg">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-primary btn-lg btn-block">Submit</button>

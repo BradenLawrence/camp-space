@@ -1,6 +1,16 @@
-var express = require("express"),
-    router  = express.Router(),
-    Site    = require("../models/landingsite")
+var express     = require("express"),
+    router      = express.Router(),
+    Site        = require("../models/landingsite")
+
+// MIDDLEWARE
+// Check if the user is logged in
+function isLoggedIn(request, response, next){
+    if(request.isAuthenticated()){
+        return next()
+    } else {
+        response.redirect("/login")
+    }
+}
 
 
 // INDEX
@@ -16,23 +26,20 @@ router.get("/", function(request, response) {
 })
 
 // NEW
-router.get("/new", function(request, response) {
+router.get("/new", isLoggedIn, function(request, response) {
     response.render("landingsites/new")
 })
 
 // CREATE
-router.post("/", function(request, response) {
-    var newSite = {
-        name:        request.body.name,
-        location:    request.body.loc,
-        img:         request.body.img,
-        description: request.body.desc
-    }
-    Site.create(newSite, function(error, newSite){
+router.post("/", isLoggedIn, function(request, response) {
+    Site.create(request.body.site, function(error, newSite){
         if(error){
             console.log("Something went wrong, could not add site.")
             console.log(error)
         } else {
+            newSite.author.id = request.user._id
+            newSite.author.username = request.user.username
+            newSite.save()
             response.redirect("/landingSites")
         }
     })
