@@ -62,14 +62,22 @@ router.get("/:id", function(request, response){
 })
 
 // EDIT
-router.get("/:id/edit", isLoggedIn, function(request, response) {
-    Site.findById(request.params.id, function(error, foundSite){
-        if(error){
-            response.redirect("/landingsites/" + request.params.id)
-        } else {
-            response.render("landingsites/edit", {site: foundSite})
-        }
-    })
+router.get("/:id/edit", function(request, response) {
+    if(request.isAuthenticated()){
+        Site.findById(request.params.id, function(error, foundSite){
+            if(error){
+                response.redirect("/landingsites/" + request.params.id)
+            } else {
+                if(foundSite.author.id.equals(request.user._id)){
+                    response.render("landingsites/edit", {site: foundSite})
+                } else {
+                    response.redirect("/landingsites/" + request.params.id)
+                }
+            }
+        })
+    } else {
+        response.redirect("/landingsites/" + request.params.id)
+    }
 })
 
 
