@@ -89,4 +89,14 @@ router.put("/:id", isLoggedIn, function(request, response){
     )
 })
 
+// DESTROY
+router.delete("/:id", isLoggedIn, function(request, response){
+    Site.findByIdAndRemove(request.params.id, function(error){
+        if(error){
+            console.log(error)
+        }
+        response.redirect("/landingsites")
+    })
+})
+
 module.exports = router
