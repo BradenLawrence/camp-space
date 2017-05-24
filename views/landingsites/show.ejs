@@ -16,12 +16,14 @@
                     <h4 class="pull-right"><%= site.location %></h4>
                     <h4><a><%= site.name %></a></h4>
                     <h5>Posted by <%= site.author.username %></h5>
-                    <div class="pull-right">
-                        <a class="btn btn-warning" href="/landingsites/<%= site._id %>/edit">Edit</a>
-                        <form class="form-inline" action="/landingsites/<%= site._id %>?_method=delete" method="POST">
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                    </div>
+                    <% if(currentUser && site.author.id.equals(currentUser._id)){ %>
+                        <div class="pull-right">
+                            <a class="btn btn-warning" href="/landingsites/<%= site._id %>/edit">Edit</a>
+                            <form class="form-inline" action="/landingsites/<%= site._id %>?_method=delete" method="POST">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    <% } %>
                     <p><%= site.description %></p>
                 </div>
             </div>
