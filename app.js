@@ -5,7 +5,8 @@ var express             = require("express"),
     mongoose            = require("mongoose"),
     expressSession      = require("express-session"),
     passport            = require("passport"),
-    LocalStrategy       = require("passport-local")
+    LocalStrategy       = require("passport-local"),
+    methodOverride      = require("method-override")
     
 // MODELS
 var User                = require("./models/user"),
@@ -23,6 +24,7 @@ var indexRoutes         = require("./routes/index"),
 app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + "/assets"))
+app.use(methodOverride("_method"))
 
 // DATABASE SETTINGS
 // seedDB()
@@ -53,6 +55,7 @@ app.use("/", indexRoutes)
 app.use("/landingsites", landingsiteRoutes)
 app.use("/landingsites/:id/comments", commentsRoutes)
 app.use("/", authRoutes)
+
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {

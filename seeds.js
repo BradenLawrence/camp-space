@@ -31,28 +31,28 @@ const seedDB = function(){
         } else {
             console.log("Removed all landing sites.")
             // Add a few sites
-            data.forEach(function(seed){
-                Site.create(seed, function(error, dbSite){
-                    if(error){
-                        console.log(error)
-                    } else {
-                        console.log("Added " + seed.name)
-                        // Add a comment
-                        Comment.create({
-                            author: "Chris",
-                            text: "Five stars! Would recommend to a friend"
-                        }, function(error, dbComment){
-                            if(error){
-                                console.log(error)
-                            } else {
-                                dbSite.comments.push(dbComment)
-                                dbSite.save()
-                                console.log(dbSite.comments)
-                            }
-                        })
-                    }
-                })
-            })
+            // data.forEach(function(seed){
+            //     Site.create(seed, function(error, dbSite){
+            //         if(error){
+            //             console.log(error)
+            //         } else {
+            //             console.log("Added " + seed.name)
+            //             // Add a comment
+            //             Comment.create({
+            //                 author: "Chris",
+            //                 text: "Five stars! Would recommend to a friend"
+            //             }, function(error, dbComment){
+            //                 if(error){
+            //                     console.log(error)
+            //                 } else {
+            //                     dbSite.comments.push(dbComment)
+            //                     dbSite.save()
+            //                     console.log(dbSite.comments)
+            //                 }
+            //             })
+            //         }
+            //     })
+            // })
         }
     })
 }
