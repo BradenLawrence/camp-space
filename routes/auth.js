@@ -17,6 +17,8 @@ router.post("/register", function(request, response) {
             response.redirect("/register")
         } else {
             passport.authenticate("local")(request, response, function(){
+                var message = "Nice to meet you, " + registeredUser.username + "!"
+                request.flash("success", message)
                 response.redirect("/landingsites")
             })
         }

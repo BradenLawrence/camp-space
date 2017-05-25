@@ -6,7 +6,8 @@ var express         = require("express"),
     expressSession  = require("express-session"),
     passport        = require("passport"),
     LocalStrategy   = require("passport-local"),
-    methodOverride  = require("method-override")
+    methodOverride  = require("method-override"),
+    flashmsg        = require("connect-flash")
     
 // MODELS
 var User    = require("./models/user"),
@@ -28,6 +29,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs")
 app.use(express.static(__dirname + "/assets"))
 app.use(methodOverride("_method"))
+app.use(flashmsg())
 
 // DATABASE SETTINGS
 // seedDB()
@@ -46,9 +48,13 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-// Make the current user's data available to all views
 app.use(function(request, response, next){
-    response.locals.currentUser = request.user
+    // Make the current user's data available to all views
+    response.locals.currentUser = request.user 
+    // Pass a message variable to all views,
+    // where we will store our flash messages
+    response.locals.error = request.flash("error")
+    response.locals.success = request.flash("success")
     next()
 })
 
