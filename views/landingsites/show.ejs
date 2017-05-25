@@ -37,6 +37,14 @@
                                 <strong><%= element.author.username %></strong>
                                 <span class="pull-right">10 days ago</span>
                             </p>
+                            <% if(currentUser && element.author.id.equals(currentUser._id)){ %>
+                                <div class="pull-right">
+                                    <a class="btn btn-xs btn-warning" href="/landingsites/<%= site._id %>/comments/<%= element._id %>/edit">Edit</a>
+                                    <form class="form-inline" action="/landingsites/<%= site._id %>/comments/<%= element._id %>?_method=delete" method="POST">
+                                        <button class="btn btn-xs btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            <% } %>
                             <p><%= element.text %></p>
                             <hr>
                         </div>

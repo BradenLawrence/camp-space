@@ -1,7 +1,8 @@
-var express = require("express"),
-    router  = express.Router({mergeParams: true}),
-    Site    = require("../models/landingsite"),
-    Comment = require("../models/comment")
+var express         = require("express"),
+    router          = express.Router({mergeParams: true}),
+    methodOverride  = require("method-override"),
+    Site            = require("../models/landingsite"),
+    Comment         = require("../models/comment")
 
 // MIDDLEWARE
 // Check if the user is logged in
@@ -44,6 +45,38 @@ router.post("/", isLoggedIn,function(request, response){
                     response.redirect("/landingsites/" + foundSite._id)
                 }
             })
+        }
+    })
+})
+
+// COMMENT EDIT
+router.get("/:commentID/edit", function(request, response){
+    var siteID = request.params.id
+    var commentID = request.params.commentID
+    Comment.findById(commentID, function(error, foundComment) {
+        if(error){
+            console.log(error)
+            response.redirect("/landingSites/" + siteID)
+        } else {
+            response.render("comments/edit", {
+                siteID: siteID, 
+                comment: foundComment
+            })
+        }
+    })
+})
+
+
+// COMMENT UPDATE
+router.put("/:commentID", function(request, response){
+    var commentID = request.params.commentID
+    var editComment = request.body.editComment
+    Comment.findByIdAndUpdate(commentID, editComment, function(error, foundComment){
+        if(error){
+            console.log(error)
+            response.redirect("/landingsite/" + request.params.id)
+        } else {
+            response.redirect("/landingsites/" + request.params.id)
         }
     })
 })
