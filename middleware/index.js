@@ -25,7 +25,7 @@ isSiteAuthor:   function(request, response, next){
                                     next()
                                 } else {
                                     request.flash("error", "Only the person who posted this Landing Site may do that.")
-                                    response.redirect("/landingsites" + request.params.id)
+                                    response.redirect("/landingsites/" + request.params.id)
                                 }
                             }
                         })

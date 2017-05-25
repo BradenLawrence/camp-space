@@ -14,6 +14,7 @@ router.post("/register", function(request, response) {
     User.register(newUser, request.body.password, function(error, registeredUser){
         if(error){
             console.log(error)
+            request.flash("error", "Error: Unable to register that user name.")
             response.redirect("/register")
         } else {
             passport.authenticate("local")(request, response, function(){
@@ -40,6 +41,7 @@ router.post("/login", passport.authenticate("local",
 // USER LOGOUT
 router.get("/logout", function(request, response) {
     request.logout()
+    request.flash("success", "You have successfully logged out.")
     response.redirect("/landingsites")
 })
 
