@@ -1,41 +1,12 @@
 var express         = require("express"),
     router          = express.Router({mergeParams: true}),
     methodOverride  = require("method-override"),
+    middleware      = require("../middleware"),
     Site            = require("../models/landingsite"),
     Comment         = require("../models/comment")
 
-// MIDDLEWARE
-// Check if the user is logged in
-function isLoggedIn(request, response, next){
-    if(request.isAuthenticated()){
-        return next()
-    } else {
-        response.redirect("/login")
-    }
-}
-
-// Check if the user posted a certain comment
-function isCommentAuthor(request, response, next){
-    if(request.isAuthenticated()){
-        Comment.findById(request.params.commentID, function(error, foundComment){
-            if(error){
-                console.log(error)
-                response.redirect("back")
-            } else {
-                if(foundComment.author.id.equals(request.user._id)){
-                    next()
-                } else {
-                    response.redirect("back")
-                }
-            }
-        })
-    } else {
-        response.send("back")
-    }
-}
-
 // COMMENT NEW
-router.get("/new", isLoggedIn, function(request, response){
+router.get("/new", middleware.isLoggedIn, function(request, response){
     Site.findById(request.params.id, function(error, foundSite){
         if(error){
             console.log(error)
@@ -46,7 +17,7 @@ router.get("/new", isLoggedIn, function(request, response){
 })
 
 // COMMENT CREATE
-router.post("/", isLoggedIn,function(request, response){
+router.post("/", middleware.isLoggedIn,function(request, response){
     Site.findById(request.params.id, function(error, foundSite){
         if(error){
             console.log(error)
@@ -70,7 +41,7 @@ router.post("/", isLoggedIn,function(request, response){
 })
 
 // COMMENT EDIT
-router.get("/:commentID/edit", isCommentAuthor, function(request, response){
+router.get("/:commentID/edit", middleware.isCommentAuthor, function(request, response){
     var siteID = request.params.id
     var commentID = request.params.commentID
     Comment.findById(commentID, function(error, foundComment) {
@@ -88,7 +59,7 @@ router.get("/:commentID/edit", isCommentAuthor, function(request, response){
 
 
 // COMMENT UPDATE
-router.put("/:commentID", isCommentAuthor, function(request, response){
+router.put("/:commentID", middleware.isCommentAuthor, function(request, response){
     var commentID = request.params.commentID
     var editComment = request.body.editComment
     Comment.findByIdAndUpdate(commentID, editComment, function(error, foundComment){
@@ -102,7 +73,7 @@ router.put("/:commentID", isCommentAuthor, function(request, response){
 })
 
 // COMMENT DESTROY
-router.delete("/:commentID", isCommentAuthor, function(request, response){
+router.delete("/:commentID", middleware.isCommentAuthor, function(request, response){
     Comment.findByIdAndRemove(request.params.commentID, function(error){
         if(error){
             console.log(error)

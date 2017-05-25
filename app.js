@@ -1,24 +1,27 @@
 // PACKAGES
-var express             = require("express"),
-    app                 = express(),
-    bodyParser          = require("body-parser"),
-    mongoose            = require("mongoose"),
-    expressSession      = require("express-session"),
-    passport            = require("passport"),
-    LocalStrategy       = require("passport-local"),
-    methodOverride      = require("method-override")
+var express         = require("express"),
+    app             = express(),
+    bodyParser      = require("body-parser"),
+    mongoose        = require("mongoose"),
+    expressSession  = require("express-session"),
+    passport        = require("passport"),
+    LocalStrategy   = require("passport-local"),
+    methodOverride  = require("method-override")
     
 // MODELS
-var User                = require("./models/user"),
-    Site                = require("./models/landingsite"),
-    Comment             = require("./models/comment"),
-    seedDB              = require("./seeds")
+var User    = require("./models/user"),
+    Site    = require("./models/landingsite"),
+    Comment = require("./models/comment"),
+    seedDB  = require("./seeds")
     
 // ROUTES
 var indexRoutes         = require("./routes/index"),
     landingsiteRoutes   = require("./routes/landingsites"),
     commentsRoutes      = require("./routes/comments"),
     authRoutes          = require("./routes/auth")
+    
+// MIDDLEWARE
+var middleware  = require("./middleware")
 
 // GENERAL APP SETTINGS
 app.use(bodyParser.urlencoded({extended: true}))
@@ -43,7 +46,6 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
-// MIDDLEWARE
 // Make the current user's data available to all views
 app.use(function(request, response, next){
     response.locals.currentUser = request.user
