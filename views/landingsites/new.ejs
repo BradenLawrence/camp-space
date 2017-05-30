@@ -1,12 +1,11 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <header class="jumbotron">
-        <div class="container">
-            <h1>CampSpace</h1>
-            <h3>Add new Landing Site</h3>
+        <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4"><h1>Add a new Landing Site</h1></div>
+        <div class="col-lg-4"></div>
         </div>
-    </header>
     <div class="row">
         <div class="col-lg-4"></div>
         <div class="col-lg-4">
@@ -19,8 +18,12 @@
                     <input class="form-control" type="text" name="site[name]" id="name" placeholder="ex: Olympus Mons">
                 </div>
                 <div class="form-group">
-                    <label for="loc">Location</label>
+                    <label for="location">Location</label>
                     <input class="form-control" type="text" name="site[location]" id="location" placeholder="ex: Mars">
+                </div>
+                <div class="form-group">
+                    <label for="distance">Distance from Earth (km)</label>
+                    <input class="form-control" type="number" name="site[distance]" id="distance" placeholder="Distance" min="0" step="1">
                 </div>
                 <div class="form-group">
                     <label for="desc">Description</label>
