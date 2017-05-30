@@ -34,8 +34,7 @@ app.use(flashmsg())
 // DATABASE SETTINGS
 // seedDB()
 mongoose.Promise = global.Promise
-// mongoose.connect("mongodb://localhost/camp-space")
-mongoose.connect("mongodb://valentina:moredeltav@ds157641.mlab.com:57641/campspace")
+mongoose.connect(process.env.DATABASEURL)
 
 // PASSPORT AUTHORIZATION SETTINGS
 app.use(expressSession({
