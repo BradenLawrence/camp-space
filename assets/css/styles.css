@@ -1,5 +1,6 @@
 .thumbnail {
     padding: 10px;
+    padding-bottom: 30px;
 }
 
 .thumbnail img {
@@ -12,4 +13,29 @@
 
 .form-inline {
     display: inline;
+}
+
+nav {
+    z-index: 1;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+.content-header {
+  text-align: center;
+  width: 60%;
+}
+
+.content-header h1 {
+  margin-bottom: 20px;
+}
+
+.content-header p {
+  margin-bottom: 45px;
+}
+
+.pull-right {
+    text-align: right;
 }
