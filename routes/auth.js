@@ -14,7 +14,7 @@ router.post("/register", function(request, response) {
     User.register(newUser, request.body.password, function(error, registeredUser){
         if(error){
             console.log(error)
-            request.flash("error", "Error: Unable to register that user name.")
+            request.flash("error", error.message)
             response.redirect("/register")
         } else {
             passport.authenticate("local")(request, response, function(){
@@ -34,7 +34,8 @@ router.get("/login", function(request, response) {
 router.post("/login", passport.authenticate("local", 
         {
             successRedirect: "/landingsites",
-            failureRedirect: "/login"
+            failureRedirect: "/login",
+            failureFlash: true
         }), 
         function(request, response) {})
 
