@@ -9,7 +9,7 @@
                 <div class="caption-full">
                     <div class="pull-right">
                     <h4><%= site.location %></h4>
-                    <p><em><%= site.distance %> km from Earth</em></p>
+                    <p><em><%= site.distance.toLocaleString() %> km from Earth</em></p>
                     <% if(currentUser && site.author.id.equals(currentUser._id)){ %>
                             <a class="btn btn-warning btn-xs" href="/landingsites/<%= site._id %>/edit">Edit</a>
                             <form class="form-inline" action="/landingsites/<%= site._id %>?_method=delete" method="POST">
