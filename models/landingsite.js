@@ -5,7 +5,7 @@ var siteSchema = new mongoose.Schema({
     location:    String,
     img:         String,
     description: String,
-    distance:    String,
+    distance:    Number,
     comments:    [
         {
             type: mongoose.Schema.Types.ObjectId,
