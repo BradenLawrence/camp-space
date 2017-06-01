@@ -2,13 +2,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4"><h1>Editing your comment</h1></div>
-        <div class="col-lg-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"><h1>Editing your comment</h1></div>
+        <div class="col-md-4"></div>
         </div>
     <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
             
             <form action="/landingSites/<%= siteID %>/comments/<%= comment._id %>?_method=PUT" method="POST">
                 <div class="form-group">
@@ -20,13 +20,13 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-4"></div>
+        <div class="col-md-4"></div>
     </div>
     <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4 form-group">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 form-group">
             <a href="/landingSites/<%= siteID %>">Cancel</a>
         </div>
-        <div class="col-lg-4"></div>
+        <div class="col-md-4"></div>
     </div>
 <% include ../partials/footer %>
