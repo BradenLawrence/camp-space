@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <p>
                                 <strong><%= element.author.username %></strong>
-                                <span class="pull-right">10 days ago</span>
+                                <span class="pull-right"><%= element.date.toDateString() %></span>
                             </p>
                             <% if(currentUser && element.author.id.equals(currentUser._id)){ %>
                                 <div class="pull-right">
