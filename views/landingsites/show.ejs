@@ -11,9 +11,9 @@
                     <h4><%= site.location %></h4>
                     <p><em><%= site.distance %> km from Earth</em></p>
                     <% if(currentUser && site.author.id.equals(currentUser._id)){ %>
-                            <a class="btn btn-warning" href="/landingsites/<%= site._id %>/edit">Edit</a>
+                            <a class="btn btn-warning btn-xs" href="/landingsites/<%= site._id %>/edit">Edit</a>
                             <form class="form-inline" action="/landingsites/<%= site._id %>?_method=delete" method="POST">
-                                <button class="btn btn-danger">Delete</button>
+                                <button class="btn btn-danger btn-xs">Delete</button>
                             </form>
                     <% } %>
                     </div>
@@ -31,13 +31,13 @@
                         <div class="col-md-12">
                             <p>
                                 <strong><%= element.author.username %></strong>
-                                <span class="pull-right"><%= element.date.toDateString() %></span>
+                                <span class="pull-right"><em><%= element.date.toDateString() %></em></span>
                             </p>
                             <% if(currentUser && element.author.id.equals(currentUser._id)){ %>
                                 <div class="pull-right">
-                                    <a class="btn btn-xs btn-warning" href="/landingsites/<%= site._id %>/comments/<%= element._id %>/edit">Edit</a>
+                                    <a class="btn btn-warning btn-xs" href="/landingsites/<%= site._id %>/comments/<%= element._id %>/edit">Edit</a>
                                     <form class="form-inline" action="/landingsites/<%= site._id %>/comments/<%= element._id %>?_method=delete" method="POST">
-                                        <button class="btn btn-xs btn-danger">Delete</button>
+                                        <button class="btn btn-danger btn-xs">Delete</button>
                                     </form>
                                 </div>
                             <% } %>

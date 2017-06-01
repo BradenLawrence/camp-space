@@ -39,3 +39,7 @@ nav {
 .pull-right {
     text-align: right;
 }
+
+hr {
+    border-top: 1px solid #cccccc;
+}
