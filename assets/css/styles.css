@@ -1,6 +1,7 @@
 .thumbnail {
     padding: 10px;
     padding-bottom: 30px;
+    min-height: 250px;
 }
 
 .caption-full {
