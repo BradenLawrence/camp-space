@@ -12,8 +12,11 @@ var express         = require("express"),
 // MODELS
 var User    = require("./models/user"),
     Site    = require("./models/landingsite"),
-    Comment = require("./models/comment"),
-    seedDB  = require("./seeds")
+    Comment = require("./models/comment")
+    
+// SEEDS
+var seedUsers   = require("./seeds/users"),
+    seedSites   = require("./seeds/landingsites")
     
 // ROUTES
 var indexRoutes         = require("./routes/index"),
@@ -32,7 +35,8 @@ app.use(methodOverride("_method"))
 app.use(flashmsg())
 
 // DATABASE SETTINGS
-// seedDB()
+// seedUsers()
+// seedSites()
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DATABASEURL)
 
