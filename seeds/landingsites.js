@@ -24,6 +24,13 @@ var mySites = [
         img:         "http://i.imgur.com/4qfOKG8.jpg",
         description: "Churyumov–Gerasimenko was the first comet to be landed on by a spacecraft. The Rosetta spacecraft's lander, Philae, was intended to use a \"harpoon\" to secure itself against the surface of the comet. However, the harpoon failed to fire and Philae bounced awkwardly a total of three times before finally coming to rest.",
         distance:    510000000
+    },
+    {
+        name:        "Philae's Bounce",
+        location:    "Comet Churyumov–Gerasimenko",
+        img:         "http://i.imgur.com/4qfOKG8.jpg",
+        description: "Churyumov–Gerasimenko was the first comet to be landed on by a spacecraft. The Rosetta spacecraft's lander, Philae, was intended to use a \"harpoon\" to secure itself against the surface of the comet. However, the harpoon failed to fire and Philae bounced awkwardly a total of three times before finally coming to rest.",
+        distance:    510000000
     }
 ]
 
@@ -33,20 +40,18 @@ const seedSites = function(){
         if(error){
             console.log(error)
         } else {
-            // Locate all users
             User.find({}, function(error, foundUsers){
                 if(error){
                     console.log(error)
                 } else {
-                    foundUsers.forEach(function(user){
-                        console.log(user)
-                        console.log()
-                        Site.create(mySites[foundUsers.indexOf(user)], function(error, newSite){
+                    mySites.forEach(function(site){
+                        var randomUser = foundUsers[Math.floor(Math.random() * foundUsers.length)]
+                        Site.create(site, function(error, newSite){
                             if(error){
                                 console.log(error)
                             } else {
-                                newSite.author.id = user._id
-                                newSite.author.username = user.username
+                                newSite.author.id = randomUser._id
+                                newSite.author.username = randomUser.username
                                 newSite.save()
                             }
                         })
