@@ -36,7 +36,7 @@ app.use(flashmsg())
 
 // DATABASE SETTINGS
 // seedUsers()
-seedSites()
+// seedSites()
 mongoose.Promise = global.Promise
 mongoose.connect(process.env.DATABASEURL)
 
