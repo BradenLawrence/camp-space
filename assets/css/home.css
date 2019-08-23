@@ -89,3 +89,8 @@ body {
     padding-top: 30vh;
     color: #ffffff;
 }
+
+.bootstrap-override > .navbar-default, 
+.navbar-nav>li>a {
+  color: #4a4a4a;
+}
