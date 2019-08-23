@@ -41,7 +41,7 @@ hr {
     border-top: 1px solid #cccccc;
 }
 
-.bootstrap-override>.navbar-default, 
-.bootstrap-override>.navbar-nav>li>a {
+.bootstrap-override>.navbar-default>.container-fluid>.navbar-header>.navbar-brand, 
+.bootstrap-override>.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
   color: #4a4a4a;
 }
