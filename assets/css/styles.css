@@ -45,3 +45,6 @@ hr {
 .bootstrap-override>.navbar-default>.container-fluid>.navbar-collapse>.navbar-nav>li>a {
   color: #212121;
 }
+.bootstrap-override>.btn-success {
+  color: #2B5F2B;
+}
