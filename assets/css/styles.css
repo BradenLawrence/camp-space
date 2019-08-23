@@ -46,5 +46,5 @@ hr {
   color: #212121;
 }
 .bootstrap-override>.btn-success {
-  color: #2B5F2B;
+  background-color: #2B5F2B;
 }
